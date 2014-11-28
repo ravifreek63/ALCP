@@ -1,0 +1,71 @@
+%n is the index of the new cluster head from the present cluster formed,
+%using a  centralized approach on the present cluster head.
+function [n,Y] = calculate_new_cluster_head(Sn_Energy,Sn,Lm,p,D,Packet_Transmission_Cost, Packet_Size, Amplification_Energy, Min_Energy, t, BS, Y, X)
+ bestLB = 0;
+ bestUB = inf ;
+ currentLB=0;
+ currentUB=inf ;
+ Sn_length = length(Sn);
+ iterations(1,:)=[0 currentLB bestLB currentUB bestUB];
+ pi = 2 ;
+ B = zeros(Sn_length,2); 
+ it_count = 0;
+ 
+  while(~stoppingCondition(it_count,bestLB,bestUB)) 
+    it_count = it_count + 1;
+    InverseCost = getInverseCost(Sn_Energy,D,Ch_length,Sn_length,Packet_Transmission_Cost, Packet_Size, Amplification_Energy);
+    % Step II Of The Code %
+    for j = 1: Sn_length
+        if(Y(j,r) == 1)
+       for i = 1 : Sn_length
+        if (Y(i,r) == 1)
+        if(Sn_Energy(i)> Min_Energy)
+          x1 = InverseCost(i,j) - (t*Lm(i));       % Costij  – t* lambdai  %
+          B(j,2) = B(j,2) +  min([0,x1]); % B stores (index, value), Summation(Bi) being done %      
+          if(x1<0 )
+            Y(i,j) = 1;
+          else 
+            Y(i,j) = 0;
+          end                    
+        end
+        end
+       end
+      B(j,1) = j;
+        end
+    end
+    
+    %  STEP III %
+    B = sortrows(B,2); % sorting the rows on 2nd column to get the first p solutions %
+    % Allocating The Cluster Head Positions Cluster Heads %
+  %  X = allocateClusterHeadPositions(B,Ch,p);  
+    X = 
+     % Lower Bound Is The Sum Over 'p' smallest values of Bj.
+    currentLB = findLB(D,Sn,Ch,Lm,X,t);% sum(B((1:p),2))+ t*sum(Lm); %Calculating the Lower Bound = sum of first p and Lambda.%trace(D * transpose(Y));
+    if(currentLB > bestLB)        % Current Lower Bound always has to be lesser than or equal to  Best Lower Bound %
+      bestLB=currentLB;
+    end
+    % Calculating the Upper Bound %
+    currentUB = findUB(X,D,Sn,Ch,Sn_Energy, Min_Energy);
+    if(currentUB < bestUB)
+      bestUB = currentUB;
+    end
+    
+    iterations(it_count+1,:)=[it_count currentLB bestLB currentUB bestUB];
+    % STEP IV : MODIFICATION OF THE LAGRANGEAN MULTIPLIERS. USING
+    % SUBGRADIENT OPTIMIZATION TECHNIQUE.http://www.hyuan.com/java/how.html
+    Y2 = transpose(Y);
+    norm = sum((1-sum(Y2)).^2);
+    if(norm == 0) % hit the lower bound
+     break
+    end
+    step = pi*(bestUB-currentLB)/norm; 
+    x = Lm + step*(1-transpose(sum(Y2))); 
+    Lm = max(0,x);
+   %Lm = Lm/2;
+  % disp(Lm);
+    %if(~improvementsOccur(iterations,piUpdateTime))
+     % pi=pi/2;
+     % piUpdateTime = it_count;
+    %end  
+    
+  end 

@@ -1,0 +1,25 @@
+function Y = formClusters_LEACH(Sn,Y, D)
+Sn_len = length(Sn);
+for i = 1: Sn_len
+if(Y(i,i) ~= 1)  % The Node Should Not Be A Cluster Head
+if(Sn_Energy(i) > Min_Energy)  % The Node Should BE Alive
+
+MinDis = inf
+MinDis_Index = i    
+%Calculating Index Of The Closest Cluster Head
+for j = 1:Sn_len
+    if(i ~
+    currDis = D(i,j);
+    if(currDis < 
+end 
+
+    
+    if(LS(i)+r <= num_it)
+    if(random('unif',0,1) <= prob)
+        LS(i) = num_it;
+        Y(i,i)=1;
+    end
+end
+end
+end
+end

@@ -1,0 +1,6 @@
+% Allocating The Cluster Head Positions Cluster Heads %
+function X = allocateClusterHeadPositions(B,p)
+   for i = 1 : p
+       index = B(i,1);          % 
+       X(index,i) = 1;          % Assigning index 
+   end

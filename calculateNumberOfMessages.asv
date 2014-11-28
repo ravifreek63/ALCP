@@ -1,0 +1,10 @@
+function numMessages = calculateNumberOfMessages (Sn) 
+clusterSize = getClusterSizes (Sn_length, Y);
+
+for i = 1 : Sn_length
+if (Y(i,i) == 1)
+    numMessages = numMessages + clusterSize (i) ;
+end
+end
+
+end

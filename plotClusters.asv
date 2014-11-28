@@ -1,0 +1,2 @@
+function plotClusters(Y,Sn,Ch);
+for j = 1 : len

@@ -1,0 +1,7 @@
+function Lb = findLB()
+ for j = 1: length(Ch)
+        for i = 1 : length(Sn)
+        
+        end
+ end
+ 

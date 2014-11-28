@@ -1,0 +1,27 @@
+function [X,Y,value] = solve_p_median(Sn_Energy,Sn,Ch,Lm,p,D,Min_Energy, t);
+Sn = readFromFile('SensorNode.txt');
+p = 5; % number of clusters to be formed
+[cidx, ctrs] = k_means(Sn, p);
+% selecting closest cluster head positions
+for j =1: p
+    MIN_DIS = 0;
+    MIN_DIS_IDX = 1;
+    allocated = zeros(length(Ch),1);
+    for i = 1 : length(Ch)
+        if(allocated(i) == 0)
+            d = findDistance(ctrs(j),Ch(i));
+            if(d < MIN_DIS)
+                d = MIN_DIS ;
+                MIN_DIS_IDX = i;
+                allocated(i) = 1;
+            end
+        end
+    end
+ % We are here aproximating the selected centroid location by the closest
+ % cluster head  location 
+ X(MIN_DIS_IDX,j) = 1;   
+end 
+Y = assignClusterHead(X,Sn,Ch,D, Min_Energy,Sn_Energy);
+value  = sum((Y * transpose (D)));
+
+%plot(Sn(cidx==1,1),Sn(cidx==1,2),'r.',Sn(cidx==2,1),Sn(cidx==2,2),'b.', ctrs(:,1),ctrs(:,2),'kx');

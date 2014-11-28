@@ -1,0 +1,3 @@
+function Cost = getInverseCostPerTransmission(Sx, Sy, Dx, Dy, Se)
+distance = (((Sx - Dx)^2 + (Sy - Dy)^2)^0.5) ;
+EnergyRequired = Packet_Size * (Packet_Transmission_Cost + Amplification_Energy * (D(i,j) ^2));

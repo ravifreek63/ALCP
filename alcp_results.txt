@@ -1,0 +1,451 @@
+
+max_death_Percent =
+
+     1
+
+
+death_Percent =
+
+    0.1000
+
+
+Number_Of_Iterations_Inverse_Cost_Method =
+
+   656
+
+
+ans =
+
+Avg_Residual_Energy
+
+
+Avg_Residual_Energy_Lagrange =
+
+    0.0130
+
+
+ans =
+
+Standard_Dev_Energy
+
+
+Standard_Dev_Energy_Lagrange =
+
+    0.0025
+
+
+totalMessages =
+
+       65481
+
+
+ans =
+
+********************************************************************************************************************************************
+
+
+death_Percent =
+
+    0.2000
+
+
+Number_Of_Iterations_Inverse_Cost_Method =
+
+   658
+
+
+ans =
+
+Avg_Residual_Energy
+
+
+Avg_Residual_Energy_Lagrange =
+
+    0.0118
+
+
+ans =
+
+Standard_Dev_Energy
+
+
+Standard_Dev_Energy_Lagrange =
+
+    0.0021
+
+
+totalMessages =
+
+       65653
+
+
+ans =
+
+********************************************************************************************************************************************
+
+
+death_Percent =
+
+    0.3000
+
+
+Number_Of_Iterations_Inverse_Cost_Method =
+
+   660
+
+
+ans =
+
+Avg_Residual_Energy
+
+
+Avg_Residual_Energy_Lagrange =
+
+    0.0108
+
+
+ans =
+
+Standard_Dev_Energy
+
+
+Standard_Dev_Energy_Lagrange =
+
+    0.0017
+
+
+totalMessages =
+
+       65801
+
+
+ans =
+
+********************************************************************************************************************************************
+
+
+death_Percent =
+
+    0.4000
+
+
+Number_Of_Iterations_Inverse_Cost_Method =
+
+   661
+
+
+ans =
+
+Avg_Residual_Energy
+
+
+Avg_Residual_Energy_Lagrange =
+
+    0.0104
+
+
+ans =
+
+Standard_Dev_Energy
+
+
+Standard_Dev_Energy_Lagrange =
+
+    0.0015
+
+
+totalMessages =
+
+       65865
+
+
+ans =
+
+********************************************************************************************************************************************
+
+
+death_Percent =
+
+    0.5000
+
+
+Number_Of_Iterations_Inverse_Cost_Method =
+
+   663
+
+
+ans =
+
+Avg_Residual_Energy
+
+
+Avg_Residual_Energy_Lagrange =
+
+    0.0096
+
+
+ans =
+
+Standard_Dev_Energy
+
+
+Standard_Dev_Energy_Lagrange =
+
+    0.0011
+
+
+totalMessages =
+
+       65974
+
+
+ans =
+
+********************************************************************************************************************************************
+
+
+death_Percent =
+
+    0.6000
+
+
+Number_Of_Iterations_Inverse_Cost_Method =
+
+   663
+
+
+ans =
+
+Avg_Residual_Energy
+
+
+Avg_Residual_Energy_Lagrange =
+
+    0.0096
+
+
+ans =
+
+Standard_Dev_Energy
+
+
+Standard_Dev_Energy_Lagrange =
+
+    0.0011
+
+
+totalMessages =
+
+       65974
+
+
+ans =
+
+********************************************************************************************************************************************
+
+
+death_Percent =
+
+    0.7000
+
+
+Number_Of_Iterations_Inverse_Cost_Method =
+
+   664
+
+
+ans =
+
+Avg_Residual_Energy
+
+
+Avg_Residual_Energy_Lagrange =
+
+    0.0094
+
+
+ans =
+
+Standard_Dev_Energy
+
+
+Standard_Dev_Energy_Lagrange =
+
+  9.6733e-004
+
+
+totalMessages =
+
+       66012
+
+
+ans =
+
+********************************************************************************************************************************************
+
+
+death_Percent =
+
+    0.8000
+
+
+Number_Of_Iterations_Inverse_Cost_Method =
+
+   665
+
+
+ans =
+
+Avg_Residual_Energy
+
+
+Avg_Residual_Energy_Lagrange =
+
+    0.0093
+
+
+ans =
+
+Standard_Dev_Energy
+
+
+Standard_Dev_Energy_Lagrange =
+
+  9.2519e-004
+
+
+totalMessages =
+
+       66040
+
+
+ans =
+
+********************************************************************************************************************************************
+
+
+death_Percent =
+
+    0.9000
+
+
+Number_Of_Iterations_Inverse_Cost_Method =
+
+   666
+
+
+ans =
+
+Avg_Residual_Energy
+
+
+Avg_Residual_Energy_Lagrange =
+
+    0.0092
+
+
+ans =
+
+Standard_Dev_Energy
+
+
+Standard_Dev_Energy_Lagrange =
+
+  9.7869e-004
+
+
+totalMessages =
+
+       66051
+
+
+ans =
+
+********************************************************************************************************************************************
+
+
+death_Percent =
+
+    1.0000
+
+
+ans =
+
+CH died after the last round
+
+
+ans =
+
+CH died after the last round
+
+
+Number_Of_Iterations_Inverse_Cost_Method =
+
+   667
+
+
+ans =
+
+Avg_Residual_Energy
+
+
+Avg_Residual_Energy_Lagrange =
+
+    0.0092
+
+
+ans =
+
+Standard_Dev_Energy
+
+
+Standard_Dev_Energy_Lagrange =
+
+  9.7869e-004
+
+
+totalMessages =
+
+       66056
+
+
+ans =
+
+********************************************************************************************************************************************
+
+
+death_Percent =
+
+    1.1000
+
+
+ans =
+
+CH died after the last round
+
+
+ans =
+
+CH died after the last round
+
+
+ans =
+
+CH died after the last round
+
+
+ans =
+
+CH died after the last round
+
+
+ans =
+
+CH died after the last round
+
+??? Attempted to access totalSensorsAssigned(2001); index out of bounds because numel(totalSensorsAssigned)=2000.
+
+Error in ==> Lagrange_multiHop at 137
+             totalMessages = totalMessages + totalSensorsAssigned(num_it);
+ 
+>> 

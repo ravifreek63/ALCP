@@ -1,0 +1,121 @@
+% Code For Homogeneous Adaptation To The Lagrangean Solution. %
+clc
+Packet_Size = 2000; % packet size 2000 units.
+Packet_Transmission_Cost = 50 * (10 ^ -9); % Packet Transmission Cost = 50 nano Joule per Bit per Packet
+Amplification_Energy = 100 * (10 ^ -12);   % Packet Amplification Cost = 100 pico Joule per Bit per metre squared
+Min_Energy = 0.01;
+Count_Max = 1;
+count = 0;
+t_init = 1;
+n = 100; % Total Number Of Sensor Nodes.%
+p = 5;  % Total Number Of Cluster Heads To Be Chosen.%
+%Sn = rand(n,2) * 100; %Sensor Nodes positions generated randomly, (array size of n*2) %
+Sn_length = n; 
+%Co-ordinates for the Base Station %
+BS = zeros(1,2);
+% Array to store the inverse cost between a particular sensor node and a
+% base station.
+SN_BS_Cost = zeros(Sn_length);
+
+%writeToFile(Sn,'SensorNode.txt');    %Code That Writes The Sensor Node Positions To The File.
+Sn = readFromFile('SensorNode.txt');
+D = zeros(Sn_length,Sn_length);   % Distance Matrix , n*n %
+% CALCULATING THE COST Matrix %
+    for i=1 : Sn_length
+        for j=1 : Sn_length
+            D(i,j) = getCost(Sn(i,1),Sn(i,2),Sn(j,1),Sn(j,2)); % Computing The Cost Function That Is The Distance Matrix Between The Sensor Node And The Cluster Head %
+        end
+    end
+death_Percent = 0.1;
+death_Percent*100
+while (count < Count_Max)
+FirstDie_Iteration_Count_1 = 0;
+FirstDie_Iteration_Count_2 = 0;
+count = count + 1;
+Sn_Energy = ones(n,1) * 0.5; %Initial Energy for each Sensor Node = 0.5 J.
+%Calculates the inverse of the residual energy if a message is transmitted
+%from sensor node i to sensor node j
+InverseCost = getInverseCost(Sn_Energy,D,Sn_length,Sn_length,Packet_Transmission_Cost, Packet_Size, Amplification_Energy);
+min_Lm = min(min(InverseCost));
+Lm = ones(Sn_length,1)*min_Lm ;    
+%Lm = ones(n,1)* 50;% Lagrangian Multipliers %  
+t = searchHeuristic(Sn_Energy, Sn, Sn, Lm, p, D, Packet_Size,Packet_Transmission_Cost,Amplification_Energy, Min_Energy, t_init );
+Is_Alive = 1;
+%     Sn_Energy = ones(n,1) * 0.5; %Initial Energy for each Sensor Node = 0.5 J.
+     num_it = 0;Dead_Count = 0;Last_Dead_Count = 0;index = 1;V_1 = zeros(30,2);STD_1 = zeros(10000,2);ARE_1 = zeros(10000,2);%it_max = 1000;Sn_Energy_STD = zeros(10,1);
+     init = 0;
+     while(Is_Alive == 1)
+      %while(num_it < it_max)
+        num_it = num_it + 1;
+        Lm = ones(n,1)*50;% Lagrangian Multipliers %    
+        FirstDie_Iteration_Count_1 = FirstDie_Iteration_Count_1 + 1 ; 
+        if(init == 0)
+            [X,Y,value] = solve_p_median_centralized(Sn_Energy,Sn,Lm,p,D,Packet_Transmission_Cost, Packet_Size, Amplification_Energy, Min_Energy, t, BS);
+            init = 1;
+        else
+             [Y] = solve_p_median_homogeneous(Sn_Energy,Sn,Lm,p,D,Packet_Transmission_Cost, Packet_Size, Amplification_Energy, Min_Energy, t);
+        end
+        
+      %  [X,Y,value] = solve_p_median_homogeneous(Sn_Energy,Sn,Lm,p,D,Packet_Transmission_Cost, Packet_Size, Amplification_Energy, Min_Energy, t, BS);
+        [Sn_Energy,Is_Alive, Dead_Count] = updateEnergies(Sn_Energy, Y, Sn, Ch,Packet_Transmission_Cost, Packet_Size, Amplification_Energy, D, Min_Energy, death_Percent);
+        %[Last_Dead_Count, V_1, index] = updateDeadCount (Dead_Count,Last_Dead_Count,V_1, index, num_it, Sn_Energy);
+     %   if(Dead_Count > Last_Dead_Count)
+      %      Last_Dead_Count = Dead_Count;
+       %     V(index,1) = num_it;
+        %    V(index,2) = Dead_Count;
+         %   index = index + 1;
+        %end
+        %STD_1(num_it) = std (Sn_Energy(:));
+        %ARE_1(num_it) = sum (Sn_Energy(:))/n ;
+      end
+      Sn_Energy_1 = Sn_Energy ;
+      %writeToFile(V_1, 'Death_Plot1.txt');
+      %writeToFile(STD_1, 'STD1.txt');
+      %writeToFile(ARE_1, 'ARE1.txt');
+%Calculating The Number Of Iterations Before The First Node Fails, by using the old and simple approach.
+
+
+ %   Is_Alive = 1;
+ %    Sn_Energy = ones(n,1) * 0.5; %Initial Energy for each Sensor Node = 0.5 J.
+ %     Lm = ones(n,1)*50;% Lagrangian Multipliers %    
+      %[X,Y,value] = solve_p_median(Sn_Energy,Sn,Ch,Lm,p,D,Min_Energy, t);
+ %      [X,Y,value] = solve_k_means(Sn_Energy,Sn,Ch,p,D,Min_Energy);
+ %     num_it = 0;index = 1;V_2 = zeros(30,2);Dead_Count = 0;Last_Dead_Count = 0;STD_2 = zeros(10000,2);ARE_2 = zeros(10000,2);%Sn_Energy_STD_2 = zeros(10,1);
+ %     while(Is_Alive == 1)
+      %while(num_it < it_max)
+ %       num_it = num_it + 1;  
+%        Lm = ones(n,1)*50;% Lagrangian Multipliers %    
+%        FirstDie_Iteration_Count_2 = FirstDie_Iteration_Count_2 + 1 ;        
+%        [Sn_Energy,Is_Alive, Dead_Count] = updateEnergies(Sn_Energy, Y, Sn, Ch,Packet_Transmission_Cost, Packet_Size, Amplification_Energy, D,Min_Energy, death_Percent);
+       % [Last_Dead_Count, V_2, index] = updateDeadCount (Dead_Count,Last_Dead_Count,V_2, index, num_it,Sn_Energy);
+       % STD_2(num_it) = std (Sn_Energy(:));
+       % ARE_2(num_it) = sum (Sn_Energy(:))/n ;
+ %     end 
+      %writeToFile(V_2, 'Death_Plot2.txt');
+      %writeToFile(STD_2, 'STD2.txt');
+      %writeToFile(ARE_2, 'ARE2.txt');
+ratio_nisTok = n/k;
+ratio_nisTok
+%death_Percent
+Avg_Inverse_Cost_Method = zeros(1,1);
+Avg_Static_Method = zeros(1,1);
+
+Number_Of_Iterations_Inverse_Cost_Method =  (FirstDie_Iteration_Count_1);
+Number_Of_Iterations_Static_Method =  (FirstDie_Iteration_Count_2);
+ratio = Number_Of_Iterations_Inverse_Cost_Method/Number_Of_Iterations_Static_Method;
+
+Number_Of_Iterations_Inverse_Cost_Method
+Number_Of_Iterations_Static_Method
+ratio
+
+Avg_Residual_Energy_Inverse_Cost_Method = (sum (Sn_Energy_1))/n
+Avg_Residual_Energy_Static_Method = (sum (Sn_Energy))/n
+
+Standard_Dev_Energy_Inverse_Cost_Method = std (Sn_Energy_1(:));
+Standard_Dev_Energy_Static_Method = std (Sn_Energy(:));
+
+
+Standard_Dev_Energy_Inverse_Cost_Method
+Standard_Dev_Energy_Static_Method
+end
+

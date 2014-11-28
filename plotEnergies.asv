@@ -1,0 +1,8 @@
+
+E1 = readFromFile('Energy_algo1.txt');
+E2 = readFromFile('Energy_algo2.txt');
+hold on
+title('Comparison of Algorithms 1, 2 on the basis ')
+plot (E1);
+plot (E2);
+hold off

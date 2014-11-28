@@ -1,0 +1,14 @@
+function [clusterSizes, totalSensorsAssigned] = getClusteSize (Y, electedClusterHead, num_it)
+l = length (Y);
+for i = 1 : l
+   for j = 1 : 5
+        chIndex = electedClusterHead (j);
+        if (chIndex ~= 0)
+            if (Y(i, j) == 1)
+                clusterSizes(num_it, j) = clusterSizes(num_it, j) + 1;
+                totalSensorsAss
+            end
+        end        
+   end
+end
+end

@@ -1,0 +1,6 @@
+function Cost = getInverseCost(Sn_Energy,D,Ch)
+for i = 1 : length(Sn_Energy)
+    for j = 1 : length(Ch)
+        Cost = (Sn_Energy (i) - Packet_Size * (Packet_Transmission_Cost + Amplification_Energy * (D(i,j) ^2));
+    end
+end

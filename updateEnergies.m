@@ -1,0 +1,108 @@
+%Function that updates the energies of the Sensor Nodes For The Current
+%Round According to the Allocation Done.
+%Each Control Message Is About 0.0625 times the Message Cost
+%(Sn_Energy, Y, Sn,Packet_Transmission_Cost, Packet_Size, Amplification_Energy_ClusterHead, Amplification_Energy_SensorNode, D, Min_Energy, death_Percent, BS, clusterHead, Energy_Data_Aggregation, Transmission_Radius, clusterHierarchicalFlag, numberOfFramesPerRound, totalEnergyDissipated, numMessagesTransmitted);
+function [Sn_Energy, Is_Alive, Dead_Count, isAliveMatrix, totalEnergyDissipated, numMessagesTransmitted]=  updateEnergies(Sn_Energy, Y, Sn, Packet_Transmission_Cost, Packet_Size, Amplification_Energy_ClusterHead, Amplification_Energy_SensorNode, D,Min_Energy, death_Percent, BS, clusterHead, Energy_Data_Aggregation,  Transmission_Radius, clusterHierarchicalFlag, numberOfFramesPerRound, totalEnergyDissipated, numMessagesTransmitted)
+Sensor_Nodes_Number = length(Sn); 
+clusterSize = getClusterSizes (Sensor_Nodes_Number, Y);
+
+%%
+numFrames = numberOfFramesPerRound;
+isAliveMatrix = ones(Sensor_Nodes_Number, 1);
+Is_Alive = 1;
+Dead_Count = 0 ;
+
+ for i = 1 : Sensor_Nodes_Number
+   if(Sn_Energy(i) > Min_Energy)   % Whenever Energy Is Reduced Below Min_Energy (0.1 Joules Here) The Sensor Node Dies.
+   if(Y(i,i) == 1 )
+       clusterHeadId = clusterHead (i);
+       
+        if (clusterHeadId == i)
+            %numFrames = numberPacketsPerRound;
+          %for nf = 1 : numFrames
+            E_Recv = Packet_Size * Packet_Transmission_Cost * (clusterSize(i));            
+          % The cluster head also expends energy when it aggregates data packets
+            E_DA = Packet_Size * Energy_Data_Aggregation * (clusterSize(i)+1);
+          % This is for the data packet 
+            E_BS = Packet_Size * (Packet_Transmission_Cost + Amplification_Energy_ClusterHead * (getCost(Sn(i,1),Sn(i,2),BS(1,1),BS(1,2)) ^4)); 
+            E_TOTAL_PER_FRAME = (E_Recv + E_DA + E_BS);       
+            E_TotalReq = E_TOTAL_PER_FRAME * numFrames;           
+            Signal_Size = 30*8;
+            E_Signal  = Signal_Size * (Packet_Transmission_Cost + Amplification_Energy_SensorNode * (Transmission_Radius ^2));
+            E_LEFT = Sn_Energy(i) - (Min_Energy+E_Signal);
+            if (E_TotalReq > E_LEFT)
+               framesTransmitted = round(E_LEFT/E_TOTAL_PER_FRAME) - 1;
+            else
+                framesTransmitted = numFrames;
+            end
+            E_TOTAL = E_TOTAL_PER_FRAME * framesTransmitted;
+            Cost = E_TOTAL;
+            numMessagesTransmitted = numMessagesTransmitted + framesTransmitted*clusterSize(i);       
+            totalEnergyDissipated = totalEnergyDissipated + Cost;
+            Sn_Energy(i) = max(0,Sn_Energy(i) - Cost) ; 
+             %Cost =  Packet_Size * (Packet_Transmission_Cost + Amplification_Energy_ClusterHead * (getCost(Sn(i,1),Sn(i,2),BS(1,1),BS(1,2)) ^4)) + Packet_Size *((clusterSize (i)+1) * Energy_Data_Aggregation +  Packet_Transmission_Cost * (clusterSize(i))); 
+             % Energy Spent In Informing The New Cluster Head
+             %E_to_SensorNode = Packet_Size * (Packet_Transmission_Cost + Amplification_Energy_SensorNode * (Transmission_Radius ^2)) ;
+             
+             %Energy  Spent In Advertisement
+            % if (clusterHierarchicalFlag ==1)
+            %      E_ClusterHead_Announcement = Packet_Size * (Packet_Transmission_Cost + Amplification_Energy_SensorNode * ( (2*Transmission_Radius) ^2)) ;                  
+            % else
+            %      E_ClusterHead_Announcement = Packet_Size * (Packet_Transmission_Cost + Amplification_Energy_SensorNode * ( (Transmission_Radius) ^2)) ; 
+            % end
+            % Cost = Cost +  E_to_SensorNode + E_ClusterHead_Announcement ;
+        else  
+            E_Recv = Packet_Size * Packet_Transmission_Cost * (clusterSize(i));            
+          % The cluster head also expends energy when it aggregates data packets
+            E_DA = Packet_Size * Energy_Data_Aggregation * (clusterSize(i)+1);
+          % This is for the data packet 
+            E_BS = Packet_Size * (Packet_Transmission_Cost + Amplification_Energy_ClusterHead * (D(i,clusterHeadId) ^4)); 
+            E_TOTAL_PER_FRAME = (E_Recv + E_DA + E_BS);       
+            E_TotalReq = E_TOTAL_PER_FRAME * numFrames;           
+            Signal_Size = 30*8;
+            E_Signal  = Signal_Size * (Packet_Transmission_Cost + Amplification_Energy_SensorNode * (Transmission_Radius ^2));
+            E_LEFT = Sn_Energy(i) - (Min_Energy+E_Signal);
+            if (E_TotalReq > E_LEFT)
+               framesTransmitted = round(E_LEFT/E_TOTAL_PER_FRAME) - 1;
+            else
+                framesTransmitted = numFrames;
+            end
+            E_TOTAL = E_TOTAL_PER_FRAME * framesTransmitted;
+            Cost = E_TOTAL;
+            numMessagesTransmitted = numMessagesTransmitted + framesTransmitted*clusterSize(i);       
+            totalEnergyDissipated = totalEnergyDissipated + Cost;
+            Sn_Energy(i) = max(0,Sn_Energy(i) - Cost) ; 
+            % Cost = Packet_Size * (Packet_Transmission_Cost + Amplification_Energy_SensorNode * (D(i,clusterHeadId) ^2)) + Packet_Size *(clusterSize (i) * Energy_Data_Aggregation +  Packet_Transmission_Cost * (clusterSize(i) - 1)); 
+            % E_to_SensorNode = Packet_Size * (Packet_Transmission_Cost + Amplification_Energy_SensorNode * (Transmission_Radius ^2)) ;
+            % if (clusterHierarchicalFlag ==1)
+            %      E_ClusterHead_Announcement = Packet_Size * (Packet_Transmission_Cost + Amplification_Energy_SensorNode * ( (2*Transmission_Radius) ^2)) ;                  
+            % else
+            %      E_ClusterHead_Announcement = Packet_Size * (Packet_Transmission_Cost + Amplification_Energy_SensorNode * ( (Transmission_Radius) ^2)) ; 
+            % end
+             %Cost = Cost +  E_to_SensorNode + E_ClusterHead_Announcement ;             
+        end
+         % Cost included for the broadcast message as well as the assignment
+         % message => 2 extra control message 
+        % Cost = 1.2*Cost;
+
+     %Sn_Energy(i) = max(0,Sn_Energy(i) - Cost) ; 
+   else
+                clusterHeadId = clusterHead (i);      
+                CostPerFrame =  (Packet_Size * (Packet_Transmission_Cost + Amplification_Energy_SensorNode * (D(i,clusterHeadId) ^2)));
+                Cost = numFrames * CostPerFrame;
+                %Energy_Join_Cluster_Message = Packet_Size * (Packet_Transmission_Cost + Amplification_Energy_SensorNode * (Transmission_Radius ^2));
+                %Cost = Cost + Energy_Join_Cluster_Message ;
+                totalEnergyDissipated = totalEnergyDissipated + Cost;
+                %numMessagesTransmitted = numMessagesTransmitted + numberOfFramesPerRound;
+                Sn_Energy(i) = max(0,Sn_Energy(i) - Cost) ;             
+   end   
+  else
+      %Is_Alive = 0;
+      isAliveMatrix (i) = 0;
+     Dead_Count = Dead_Count + 1;
+    end
+ end
+ if(((Dead_Count) / (Sensor_Nodes_Number)) >= death_Percent) 
+    Is_Alive = 0;
+ end
+ 

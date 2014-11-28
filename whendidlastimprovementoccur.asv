@@ -1,0 +1,5 @@
+
+function lastImp=whenDidLastImprovementOccur(iterations)
+lastValue=iterations(end);      % lastValue = End Row 
+ixLastImp=length(find(iterations~=lastValue)); % ixLastImp = Index of the 
+lastImp=length(iterations)-ixLastImp;

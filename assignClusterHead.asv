@@ -1,0 +1,17 @@
+% function that allocates a sensor node to a cluster head %
+function feasibleAssignments = assignCustomers(X,Sn,Ch)
+  for i = 1 : length(Sn)
+      MinD = 0 ;MinIndex = 1;
+    for j =  1 : length(Ch)  
+        if sum(X(i,:) ~= 0
+          D = (( (Sn(i,1) - Ch(j,1))^2 + (Sn(i,2) - Ch(j,2))^2 ) ^ 0.5 );
+          if(MinD > D)
+              MinD = D ;
+              MinIndex = j;
+          end
+        end
+    end
+    A(i,find(X(j,:)>0)) = 1 ;
+  end
+  A = 
+end

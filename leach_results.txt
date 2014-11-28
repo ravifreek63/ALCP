@@ -1,0 +1,446 @@
+
+death_Percent =
+
+     0
+
+
+eff_num_it =
+
+    47
+
+
+ans =
+
+Average Residual Energy LEACH
+
+
+ans =
+
+    0.4608
+
+
+ans =
+
+Standard deviation Residual Energy LEACH
+
+
+ans =
+
+    0.0471
+
+
+ans =
+
+numberOfMessageTransmitted
+
+
+numberOfMessageTransmitted =
+
+        6299
+
+
+death_Percent =
+
+    0.1000
+
+
+eff_num_it =
+
+    79
+
+
+ans =
+
+Average Residual Energy LEACH
+
+
+ans =
+
+    0.3269
+
+
+ans =
+
+Standard deviation Residual Energy LEACH
+
+
+ans =
+
+    0.1184
+
+
+ans =
+
+numberOfMessageTransmitted
+
+
+numberOfMessageTransmitted =
+
+       26018
+
+
+death_Percent =
+
+    0.2000
+
+
+eff_num_it =
+
+    87
+
+
+ans =
+
+Average Residual Energy LEACH
+
+
+ans =
+
+    0.2323
+
+
+ans =
+
+Standard deviation Residual Energy LEACH
+
+
+ans =
+
+    0.1254
+
+
+ans =
+
+numberOfMessageTransmitted
+
+
+numberOfMessageTransmitted =
+
+       39289
+
+
+death_Percent =
+
+    0.3000
+
+
+eff_num_it =
+
+    95
+
+
+ans =
+
+Average Residual Energy LEACH
+
+
+ans =
+
+    0.1556
+
+
+ans =
+
+Standard deviation Residual Energy LEACH
+
+
+ans =
+
+    0.1141
+
+
+ans =
+
+numberOfMessageTransmitted
+
+
+numberOfMessageTransmitted =
+
+       50287
+
+
+death_Percent =
+
+    0.4000
+
+
+eff_num_it =
+
+   101
+
+
+ans =
+
+Average Residual Energy LEACH
+
+
+ans =
+
+    0.1042
+
+
+ans =
+
+Standard deviation Residual Energy LEACH
+
+
+ans =
+
+    0.0995
+
+
+ans =
+
+numberOfMessageTransmitted
+
+
+numberOfMessageTransmitted =
+
+       57709
+
+
+death_Percent =
+
+    0.5000
+
+
+eff_num_it =
+
+   105
+
+
+ans =
+
+Average Residual Energy LEACH
+
+
+ans =
+
+    0.0765
+
+
+ans =
+
+Standard deviation Residual Energy LEACH
+
+
+ans =
+
+    0.0875
+
+
+ans =
+
+numberOfMessageTransmitted
+
+
+numberOfMessageTransmitted =
+
+       61952
+
+
+death_Percent =
+
+    0.6000
+
+
+eff_num_it =
+
+   109
+
+
+ans =
+
+Average Residual Energy LEACH
+
+
+ans =
+
+    0.0559
+
+
+ans =
+
+Standard deviation Residual Energy LEACH
+
+
+ans =
+
+    0.0745
+
+
+ans =
+
+numberOfMessageTransmitted
+
+
+numberOfMessageTransmitted =
+
+       65072
+
+
+death_Percent =
+
+    0.7000
+
+
+eff_num_it =
+
+   113
+
+
+ans =
+
+Average Residual Energy LEACH
+
+
+ans =
+
+    0.0375
+
+
+ans =
+
+Standard deviation Residual Energy LEACH
+
+
+ans =
+
+    0.0590
+
+
+ans =
+
+numberOfMessageTransmitted
+
+
+numberOfMessageTransmitted =
+
+       68037
+
+
+death_Percent =
+
+    0.8000
+
+
+eff_num_it =
+
+   118
+
+
+ans =
+
+Average Residual Energy LEACH
+
+
+ans =
+
+    0.0245
+
+
+ans =
+
+Standard deviation Residual Energy LEACH
+
+
+ans =
+
+    0.0453
+
+
+ans =
+
+numberOfMessageTransmitted
+
+
+numberOfMessageTransmitted =
+
+       70043
+
+
+death_Percent =
+
+    0.9000
+
+
+eff_num_it =
+
+   125
+
+
+ans =
+
+Average Residual Energy LEACH
+
+
+ans =
+
+    0.0111
+
+
+ans =
+
+Standard deviation Residual Energy LEACH
+
+
+ans =
+
+    0.0238
+
+
+ans =
+
+numberOfMessageTransmitted
+
+
+numberOfMessageTransmitted =
+
+       72281
+
+
+death_Percent =
+
+    1.0000
+
+
+eff_num_it =
+
+   137
+
+
+ans =
+
+Average Residual Energy LEACH
+
+
+ans =
+
+    0.0051
+
+
+ans =
+
+Standard deviation Residual Energy LEACH
+
+
+ans =
+
+    0.0040
+
+
+ans =
+
+numberOfMessageTransmitted
+
+
+numberOfMessageTransmitted =
+
+       73078
+
+
+ans =
+
+********************************************************************************************************************************************
+
+>> 
